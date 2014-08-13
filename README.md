@@ -28,7 +28,7 @@ grunt.initConfig({
     options: {
       // Task-specific options go here.
     },
-    your_target: {
+    files: {
       // Target-specific file lists and/or options go here.
     },
   },
@@ -37,17 +37,31 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+
+#### options.accessKeyId
 Type: `String`
-Default value: `',  '`
 
-A string value that is used to do something with whatever.
+A string value that is your aliyun oss accessKeyId.
 
-#### options.punctuation
+#### options.accessKeySecret
 Type: `String`
-Default value: `'.'`
 
-A string value that is used to do something else with whatever else.
+A string value that is your aliyun oss accessKeySecret.
+
+#### options.bucket
+Type: `String`
+
+A string value that is your aliyun oss bucket.
+
+#### options.objectGen
+Type: `Function`
+Default: 
+```js
+function(dest, src){
+	return [dest, path.basename(src)].join('\/');
+}
+```
+A function that return a oss objectName by dest and src. Default return grunt task files' dest + files' name.
 
 ### Usage Examples
 
@@ -56,28 +70,17 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  oss_up: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  oss_up: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+  oss: {
+	upload:{
+	  options: {
+		accessKeyId: your_accessKeyId,
+		accessKeySecret: your_accessKeySecret,
+		bucket: your_bucket_name
+	  },
+	  files: {
+	    'myoss/js': ['src/main.js', 'src/other.js', 'src/js/*.js']
+	  }
+	}
   },
 });
 ```
