@@ -24,7 +24,7 @@ In your project's Gruntfile, add a section named `oss_up` to the data object pas
 
 ```js
 grunt.initConfig({
-  oss_up: {
+  oss: {
     options: {
       // Task-specific options go here.
     },
