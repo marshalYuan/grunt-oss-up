@@ -1,7 +1,7 @@
 {
   "name": "grunt-oss-up",
   "description": "A grunt tool for uploading static file to aliyun oss.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://github.com/marshalYuan/grun-oss-up",
   "author": {
     "name": "marshalYuan",
@@ -40,6 +40,7 @@
   ],
   "dependencies": {
     "async": "^0.9.0",
+    "chalk": "^0.5.1",
     "oss-client": "~0.4.0"
   }
 }

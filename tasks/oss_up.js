@@ -14,7 +14,9 @@ module.exports = function(grunt) {
 	// creation: http://gruntjs.com/creating-tasks
 	var OSS = require('oss-client'),
 		async = require('async'),
-		path = require('path');
+		path = require('path'),
+		fs = require('fs'),
+		chalk = require('chalk');
 		
 	grunt.registerMultiTask('oss', 'A grunt tool for uploading static file to aliyun oss.', function() {
 		var done = this.async(); 
@@ -39,7 +41,8 @@ module.exports = function(grunt) {
 				accessKeySecret: options.accessKeySecret
 			};
 		//creat a new oss-client
-		var	oss = new OSS.OssClient(option);
+		var	oss = new OSS.OssClient(option),
+			uploadQue = [];
 		// Iterate over all specified file groups.
 		this.files.forEach(function(f) {
 			// Concat specified files.
@@ -60,32 +63,40 @@ module.exports = function(grunt) {
 				};
 
 			});
-			var uploadTasks = [];
 			objects.forEach(function(o) {
-				
-				uploadTasks.push(makeUploadTask(o));	
-			});
-			grunt.log.ok('Start uploading files.')
-			async.series(uploadTasks, function(error, results) {
-				if (error) {
-					grunt.fail.fatal("uploadError:"+error);
-				} else {
-					grunt.log.ok('All files has uploaded yet!');
-				}
-				done(error, results);
-			});
-			/**
-			 * @name makeUploadTask  -- make task for async
-			 * @param object  --aliyun oss object
-			 */
-			function makeUploadTask(object) {
-				return function(callback) {
-					oss.putObject(object, function (error, result) {
+				uploadQue.push(o);	
+			});	
+		});
+		var uploadTasks = [];
+		uploadQue.forEach(function(o) {
+			uploadTasks.push(makeUploadTask(o));	
+		});
+		grunt.log.ok('Start uploading files.')
+		async.series(uploadTasks, function(error, results) {
+			if (error) {
+				grunt.fail.fatal("uploadError:"+ JSON.stringify(error));
+			} else {
+				grunt.log.ok('All files has uploaded yet!');
+			}
+			done(error, results);
+		});
+		/**
+		 * @name makeUploadTask  -- make task for async
+		 * @param object  --aliyun oss object
+		 */
+		function makeUploadTask(o) {
+			return function(callback) {
+				//skip object when object's path is a directory;
+				if( fs.lstatSync(o.srcFile).isDirectory() ){
+					grunt.log.error(chalk.cyan(o.srcFile) + chalk.red(' is a directory, skip it!'));
+					callback();
+				}else {
+					grunt.log.ok('Start uploading file '+ chalk.cyan(o.srcFile));
+					oss.putObject(o, function (error, result) {
 						callback(error, result);
 					});
-				}
+				}	
 			}
-			
-		});
+		}
 	});
 };
