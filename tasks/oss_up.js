@@ -67,8 +67,8 @@ module.exports = function(grunt) {
 			});
 			grunt.log.ok('Start uploading files.')
 			async.series(uploadTasks, function(error, results) {
-				if (err) {
-					grunt.fail.fatal("uploadError:"+err);
+				if (error) {
+					grunt.fail.fatal("uploadError:"+error);
 				} else {
 					grunt.log.ok('All files has uploaded yet!');
 				}
