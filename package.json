@@ -1,7 +1,7 @@
 {
   "name": "grunt-oss-up",
   "description": "A grunt tool for uploading static file to aliyun oss.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/marshalYuan/grun-oss-up",
   "author": {
     "name": "marshalYuan",
