@@ -1,23 +1,23 @@
 {
   "name": "grunt-oss-up",
   "description": "A grunt tool for uploading static file to aliyun oss.",
-  "version": "0.1.0",
-  "homepage": "https://github.com/marshalYuan/grun-oss-up",
+  "version": "0.2.0",
+  "homepage": "https://github.com/marshalYuan/grunt-oss-up",
   "author": {
     "name": "marshalYuan",
     "email": "marshal_o@163.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/marshalYuan/grun-oss-up.git"
+    "url": "git://github.com/marshalYuan/grunt-oss-up.git"
   },
   "bugs": {
-    "url": "https://github.com/marshalYuan/grun-oss-up/issues"
+    "url": "https://github.com/marshalYuan/grunt-oss-up/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/marshalYuan/grun-oss-up/blob/master/LICENSE-MIT"
+      "url": "https://github.com/marshalYuan/grunt-oss-up/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {

@@ -55,6 +55,7 @@ A string value that is your aliyun oss bucket.
 
 #### options.objectGen
 Type: `Function`
+
 Default: 
 ```js
 function(dest, src){
@@ -62,7 +63,7 @@ function(dest, src){
 }
 ```
 A function that return a oss objectName by dest and src. Default return grunt task files' dest + files' name.
-
+There is another [example](https://github.com/marshalYuan/grunt-oss-up/issues/1)
 ### Usage Examples
 
 #### Default Options
